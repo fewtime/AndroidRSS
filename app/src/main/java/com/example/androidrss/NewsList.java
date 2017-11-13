@@ -12,9 +12,11 @@ import android.view.MenuItem;
 
 import com.example.androidrss.Adapter.FeedAdapter;
 import com.example.androidrss.Common.HTTPDataHandler;
+import com.example.androidrss.Common.DynamicTimeFormat;
 import com.example.androidrss.Model.RSSObject;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -44,6 +46,8 @@ public class NewsList extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(this).setTimeFormat(new DynamicTimeFormat("更新于 %s")));
+
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
