@@ -7,34 +7,9 @@
 
     tools:context="com.example.androidrss.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+    <ImageView
+        android:id="@+id/welcomeImg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white" />
-
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/refreshLayout"
-        android:layout_below="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:padding="8dp"
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:background="#fff" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:padding="8dp"-->
-        <!--android:id="@+id/recyclerView"-->
-        <!--android:layout_below="@id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
