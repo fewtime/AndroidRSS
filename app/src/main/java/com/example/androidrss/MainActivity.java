@@ -14,6 +14,9 @@ import com.example.androidrss.Adapter.FeedAdapter;
 import com.example.androidrss.Common.HTTPDataHandler;
 import com.example.androidrss.Model.RSSObject;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,20 +43,27 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                loadRSS();
+                refreshlayout.finishRefresh(2000);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000);
+            }
+        });
+
 
         loadRSS();
     }
 
     private void loadRSS() {
         AsyncTask<String, String, String> loadRSSAsync = new AsyncTask<String, String, String>() {
-
-            ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
-
-            @Override
-            protected void onPreExecute() {
-                mDialog.setMessage("Please wait...");
-                mDialog.show();
-            }
 
             @Override
             protected String doInBackground(String... params) {
@@ -65,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String s) {
-                mDialog.dismiss();
+//                mDialog.dismiss();
                 rssObject = new Gson().fromJson(s, RSSObject.class);
                 FeedAdapter adapter = new FeedAdapter(rssObject, getBaseContext());
                 recyclerView.setAdapter(adapter);
@@ -78,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
         loadRSSAsync.execute(url_get_data.toString());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_refresh)
-            loadRSS();
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.menu_refresh)
+//            loadRSS();
+//        return true;
+//    }
 }
