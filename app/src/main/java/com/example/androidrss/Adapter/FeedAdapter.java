@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.androidrss.Interface.ItemClickListener;
 import com.example.androidrss.Model.RSSObject;
+import com.example.androidrss.NewsDetail;
 import com.example.androidrss.R;
 
 
@@ -24,6 +26,7 @@ class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         View.OnLongClickListener {
 
     public TextView txtTitle, txtPubDate, txtContent;
+    public WebView webView;
     private ItemClickListener itemClickListener;
 
     public FeedViewHolder(View itemView) {
@@ -82,9 +85,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder>{
             @Override
             public void onClick(View view, int position, boolean isLongCilck) {
                 if (!isLongCilck) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(rssObject.getItems().get(position).getLink()));
-                    mContext.startActivity(browserIntent);
+//                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+//                            Uri.parse(rssObject.getItems().get(position).getLink()));
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, NewsDetail.class);
+                    intent.putExtra("com.example.androidrss.uri", rssObject.getItems().get(position).getLink());
+                    mContext.startActivity(intent);
                 }
             }
         });
